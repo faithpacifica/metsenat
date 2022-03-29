@@ -17,16 +17,41 @@
               <img src="@/static/img/avatar.svg" />
             </span>
           </router-link>
-          <button class="cursor-pointer">
+          <button class="cursor-pointer"  @click="showModal">
+            <!-- TODO:TALABA FILTERIGA KUCHIRISH -->
               <img src="@/static/img/logout.svg" width="32" height="32">
           </button>
+           <StudentFilterModal 
+                     v-show="isModalVisible"
+                     @close="closeModal"
+                />   
         </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import StudentFilterModal from '@/components/AdminPageComponents/StudentFilterModal.vue';
+
+export default {
+    components:{
+        StudentFilterModal
+    },
+     data() {
+      return {
+        isModalVisible: false,
+      };
+    },
+    methods: {
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      }
+    }
+};
 </script>
+
 <style>
 .header-top {
   box-shadow: 0px 25px 40px rgba(0, 0, 0, 0.03);

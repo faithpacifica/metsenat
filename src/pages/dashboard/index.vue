@@ -1,6 +1,9 @@
 <template >
    <ProHeader/>
-   <router-view></router-view>
+   <div class="pt-[48px] pb-[50px] bg-[#E5E5E5] h-screen ">
+        <router-view></router-view>
+   </div>
+ 
 </template>
 
 

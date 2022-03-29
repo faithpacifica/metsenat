@@ -1,6 +1,6 @@
 <template lang="">
-        <div class="message-section w-[45%] pt-[67px] pl-[72px] ">
-          <div class="message-section__inner">
+        <div class="message-section w-[45%]  ">
+          <div class="message-section__inner pt-[67px] pl-[72px]">
             <div class="">
               <p
                 class="message-section__text mb-[24px] z-[2] font-['SF Pro Display']  font-medium text-[20px] leading-[30px] text-justify text-[#28293D]"
@@ -12,7 +12,7 @@
               <div class="flex items-center">
                 <img
                   class="mr-[17px] rounded-[16px]"
-                  src="@/static/img/president.jpg"
+                  src="@/static/img/prezident.jpg"
                   width="55"
                 />
                 <div class="justify-between">
@@ -36,12 +36,10 @@ export default {
 </script>
 <style >
     
-.message-section__inner {
+.message-section {
   background-image: url("@/static/img/apostroph-top.svg"), url("@/static/img/apostroph-bottom.svg");
   background-repeat: no-repeat;
-  background-position: left -20px top -18px, right -30px bottom 90px; 
-  /* TODO:kurinmayapti  */
- 
+  background-position: left 40px top 50px, right 0px top 140px; 
 }
 
 </style>

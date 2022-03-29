@@ -610,6 +610,20 @@
   "resolved" "https://registry.npmjs.org/@vue/web-component-wrapper/-/web-component-wrapper-1.3.0.tgz"
   "version" "1.3.0"
 
+"@vuelidate/core@^2.0.0-alpha.35":
+  "integrity" "sha512-BSGQElu5lyI0GzqehFzUWy7GXhEUC7Z8oEpdxgCyGGN5gOFlAQ5Zr4dDFzfIOhU4jik3CfPHK+i+Juqg2OCKNw=="
+  "resolved" "https://registry.npmjs.org/@vuelidate/core/-/core-2.0.0-alpha.35.tgz"
+  "version" "2.0.0-alpha.35"
+  dependencies:
+    "vue-demi" "^0.12.0"
+
+"@vuelidate/validators@^2.0.0-alpha.27":
+  "integrity" "sha512-omCUVP+gr2kKBMQwdKsOYPWYk/Fu92K93LRnl8Vk856UudNlb89wCreh0/Q8DpVEOisLljI3T7026QCo9eSq4Q=="
+  "resolved" "https://registry.npmjs.org/@vuelidate/validators/-/validators-2.0.0-alpha.27.tgz"
+  "version" "2.0.0-alpha.27"
+  dependencies:
+    "vue-demi" "^0.12.0"
+
 "@vueuse/core@^8.0.1":
   "integrity" "sha512-NmpizOcQXW0OHV0qa6YwFtw5hQBe0RxMuxQoIIbCa6jRT16MTweFPecIM6VgA1e5vZJtAO7p//TgLSpzi3joZQ=="
   "resolved" "https://registry.npmjs.org/@vueuse/core/-/core-8.1.1.tgz"
@@ -5828,6 +5842,11 @@
     "extsprintf" "^1.2.0"
 
 "vue-demi@*":
+  "integrity" "sha512-ztPDkFt0TSUdoq1ZI6oD730vgztBkiByhUW7L1cOTebiSBqSYfSQgnhYakYigBkyAybqCTH7h44yZuDJf2xILQ=="
+  "resolved" "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.4.tgz"
+  "version" "0.12.4"
+
+"vue-demi@^0.12.0":
   "integrity" "sha512-ztPDkFt0TSUdoq1ZI6oD730vgztBkiByhUW7L1cOTebiSBqSYfSQgnhYakYigBkyAybqCTH7h44yZuDJf2xILQ=="
   "resolved" "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.4.tgz"
   "version" "0.12.4"

@@ -1,7 +1,6 @@
-import { createRouter, createWebHistory  } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-
   {
     path: "/",
     name: "main",
@@ -17,58 +16,86 @@ const routes = [
     },
   },
   {
-    path: '/grants',
+    path: "/grants",
     meta: {
-        title: 'grants'
+      title: "grants",
     },
-    component: () => import ('@/pages/grants.vue')
-},
-{
-    path: '/tax-exemption',
-    meta: {
-        title: 'tax'
-    },
-    component: () => import ('@/pages/taxExemption.vue')
-},
-{
-    path: '/register',
-    meta: {
-        title: 'register'
-    },
-    component: () => import ('@/pages/register.vue')
-},
-{
-  path: '/dashboard',
-  meta: {
-      title: 'Dashboard'
+    component: () => import("@/pages/grants.vue"),
   },
-  component: () => import ('@/pages/dashboard/index.vue'),
-  children: [
-    {
-      path: '/students',
-      component: () => import ('@/pages/dashboard/students.vue'),
+  {
+    path: "/tax-exemption",
+    meta: {
+      title: "tax",
     },
-    {
-      path: '/sponsors',
-      component: () => import ('@/pages/dashboard/sponsors.vue'),
+    component: () => import("@/pages/taxExemption.vue"),
+  },
+  {
+    path: "/register",
+    meta: {
+      title: "register",
     },
-    {
-      path: '/dashboard/statistics',
-      component: () => import ('@/pages/dashboard/statistics.vue'),
+    component: () => import("@/pages/register.vue"),
+  },
+
+  {
+    path: "/dashboard",
+    meta: {
+      title: "Dashboard",
     },
-  ]
-},
+    component: () => import("@/pages/dashboard/index.vue"),
+    children: [
+      {
+        path: "/students",
+        component: () => import("@/pages/dashboard/students.vue"),
+        // children:[      
+        // ]
+      },
+     {
+        path: "/sponsors",
+        component: () => import("@/pages/dashboard/sponsors.vue"),
+        // children: [
+        // ],
+      },
+
+      
+      {
+        path: "/dashboard/statistics",
+        component: () => import("@/pages/dashboard/statistics.vue"),
+      },
+    ],
+  },
+  
+  {
+    path: "/single-student",
+    meta: {
+      title: "single student",
+    },
+    component: () => import("@/pages/AdminPages/singleStudentInfo.vue"),
+  },
+
+  {
+    path: "/single-sponsor",
+    meta: {
+      title: "single sponsor",
+    },
+    component: () => import("@/pages/AdminPages/singleSponsorInfo.vue"),
+  },
+
+
+  {
+    path: "/add-student",
+    meta: {
+      title: "add student",
+    },
+    component: () => import("@/pages/AdminPages/addStudent.vue"),
+  },
+
 
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
-
-// const router = createRouter({
-//   history: createWebHashHistory(),
-//   routes,
-// });
+});
 
 export default router;

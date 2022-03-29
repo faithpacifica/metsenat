@@ -1,5 +1,5 @@
-<template lang="">
-    <div class="flex justify-center flex-col items-center text-center pt-[64px] font-['Rubik']">
+<template >
+    <div class="flex justify-center flex-col items-center text-center py-[100px]  font-['Rubik'] w-[586px] h-screen h-[100%]">
       <img class="w-[120px] mb-[32px]" src="@/static/img/icon-successful.png">  
       <div class="w-[301px]">
           <h4 class="font-medium text-[15px] leading-[18px] text-[#2E384D] mb-[8px]">Ma’lumotlar tekshirish uchun yuborildi.</h4>
@@ -13,6 +13,6 @@ export default {
     
 }
 </script>
-<style lang="">
+<style>
     
 </style>

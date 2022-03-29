@@ -1,10 +1,8 @@
 <template>
-   <!-- <Header /> -->
   <router-view />
 </template>
 
 <script>
-// import Header from './components/Header/Header';
 
 export default {
 
@@ -19,7 +17,6 @@ export default {
   },
   name: "App",
   components: {
-    // Header,
 
   },
 }
@@ -59,17 +56,7 @@ body {
     background-color: #fff;
 }
 
-/* CONTAINER */
-.container {
-    width: 100%;
-    max-width: 1240px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-/* TAB STYLES CHANGE TODO:still uzgartirish qanchalik tugri */
 .el-tabs__content {
      overflow: visible !important;
 }
