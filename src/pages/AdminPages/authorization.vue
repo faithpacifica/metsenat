@@ -40,7 +40,6 @@
           />
         </div>
 
-
         <!-- RECAPTCHA TODO: optimallashtirish-->
         <div class="w-[100%] mb-[22.5px]">
           <div
@@ -54,10 +53,10 @@
             data-error-callback="recaptchaErrorCallback"
             class="g-recaptcha d-inline-block"
           >
-            <div >
+            <div>
               <div>
                 <iframe
-                class="w-[100%]"
+                  class="w-[100%]"
                   title="reCAPTCHA"
                   src="https://www.recaptcha.net/recaptcha/api2/anchor?ar=1&amp;k=6LecmtAcAAAAAMCTWnWwAB_M73zZQIq8lmwx8yVv&amp;co=aHR0cHM6Ly9jbHViLm1ldHNlbmF0LnV6OjQ0Mw..&amp;hl=en&amp;v=85AXn53af-oJBEtL2o2WpAjZ&amp;theme=light&amp;size=normal&amp;badge=bottomright&amp;cb=qv0615og7vaq"
                   height="78"
@@ -87,8 +86,10 @@
           </div>
         </div>
 
-        <router-link to="/dashboard"
-          class="btn-primary bg-[#2E5BFF] rounded-[6px] p-[14px] w-[100%] font-medium text-[15px] leading-[21px] text-center text-[#FFFFFF]">
+        <router-link
+          to="/dashboard"
+          class="btn-primary bg-[#2E5BFF] rounded-[6px] p-[14px] w-[100%] font-medium text-[15px] leading-[21px] text-center text-[#FFFFFF]"
+        >
           Kirish
         </router-link>
       </form>
@@ -97,23 +98,16 @@
 </template>
 
 <script>
-
 export default {
-    components:{
-       
-    }
+  components: {},
 };
 </script>
 
 <style>
-/* Ishlamadi TODO: */
 .rc-anchor-normal {
-    width: 100% !important;
+  width: 100% !important;
 }
-/* .form {
-  border: 1px solid #ebeefc;
-  box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.03);
-} */
+
 
 .form__input {
   background: rgba(224, 231, 255, 0.2);

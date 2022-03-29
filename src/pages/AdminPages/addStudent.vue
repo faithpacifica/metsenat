@@ -32,7 +32,7 @@
                 F.I.Sh. (Familiya Ism Sharifingiz)
               </label>
               <input
-                class="form__input block  px-[16px] py-[12px] rounded-[6px] w-[100%]"
+                class="form__input block px-[16px] py-[12px] rounded-[6px] w-[100%]"
                 type="text"
                 placeholder="Abdullayev Abdulla Abdulla o’g’li"
               />
@@ -71,16 +71,14 @@
           </div>
 
           <div class="selects-wrapper flex justify-between">
-            <div class="font-['Rubik'] mb-[28px] text-left flex flex-col  w-[49%]">
+            <div
+              class="font-['Rubik'] mb-[28px] text-left flex flex-col w-[49%]"
+            >
               <label
                 class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
                 >Talabalik turi</label
               >
-              <el-select
-                v-model="value"
-                disabled
-                placeholder="Barchasi"
-              >
+              <el-select v-model="value" disabled placeholder="Barchasi">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -89,7 +87,9 @@
                 />
               </el-select>
             </div>
-            <div class="font-['Rubik'] mb-[28px] text-left flex flex-col  w-[49%]">
+            <div
+              class="font-['Rubik'] mb-[28px] text-left flex flex-col w-[49%]"
+            >
               <label
                 class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
                 >Kontrakt summa</label
@@ -108,11 +108,11 @@
               </el-select>
             </div>
           </div>
-    <hr class="divider"/>
+          <hr class="divider" />
 
           <div class="add-button-wrapper flex justify-end mt-[28px]">
             <button
-              class="flex  py-[13px] pl-[36px] pr-[32px] bg-[#3366FF] rounded-[5px]"
+              class="flex py-[13px] pl-[36px] pr-[32px] bg-[#3366FF] rounded-[5px]"
             >
               <img
                 class="mr-[10px] block"
@@ -142,8 +142,7 @@ export default {
 </script>
 
 <style>
-.divider{
-  border: 1px solid #F5F5F7;
-
+.divider {
+  border: 1px solid #f5f5f7;
 }
 </style>

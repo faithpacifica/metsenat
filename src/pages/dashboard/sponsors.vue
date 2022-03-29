@@ -11,7 +11,6 @@ import SponsorsDataTable from '@/components/AdminPageComponents/SponsorsDataTabl
 export default {
     components:{
         SponsorsDataTable,
-        // Pagination
   }
 }
 </script>

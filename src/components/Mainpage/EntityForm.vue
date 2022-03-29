@@ -4,6 +4,8 @@
     <form
       v-if="sentSuccessfully === false"
       class="form entity-form max-w-[586px] w-[100%] mt-[28px]"
+      id="entityForm"
+      @submit="checkForm"
       action="#"
       method="post"
     >
@@ -45,7 +47,8 @@
         >
           <label
             :for="'input2' + item.id"
-            class="radio w-[185px] border-[#2E5BFF] cursor-pointer">
+            class="radio w-[185px] border-[#2E5BFF] cursor-pointer"
+          >
             <input
               class="input-active"
               v-model="inputValue2"
@@ -62,7 +65,7 @@
                   >{{ item.sum }}</span
                 >
                 <span
-                  class="sum  text-[12px] leading-[18px] uppercase text-[#2E5BFF]"
+                  class="sum text-[12px] leading-[18px] uppercase text-[#2E5BFF]"
                   >UZS</span
                 >
               </span>
@@ -73,19 +76,27 @@
 
       <transition>
         <div class="font-['Rubik'] mb-[28px]" v-if="inputValue2 == 'input220'">
-          <label
-            class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
-          >
-            Tashkilot nomi
-          </label>
           <input
-            class="form__input block w-[100%] py-[12px] px-[16px] rounded-[6px]"
+            class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
             type="text"
-            placeholder="Orient Group"
-            maxlength="100"
+            placeholder=""
           />
         </div>
       </transition>
+
+      <div class="font-['Rubik'] mb-[28px]">
+        <label
+          class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
+        >
+          Tashkilot nomi
+        </label>
+        <input
+          class="form__input block w-[100%] py-[12px] px-[16px] rounded-[6px]"
+          type="text"
+          placeholder="Orient Group"
+          maxlength="100"
+        />
+      </div>
 
       <div class="send-button">
         <button
@@ -98,7 +109,6 @@
         </button>
       </div>
     </form>
-
 
     <div v-else-if="sentSuccessfully === true">
       <Successful />
@@ -158,7 +168,7 @@ export default {
 
 <style scoped>
 .entity-form .radio {
-  width:185px;
+  width: 185px;
   border: 2px solid #e0e7ff;
   border-radius: 5px;
   position: relative;
@@ -174,6 +184,7 @@ export default {
 .click {
   border: 2px solid transparent;
 }
+
 .radio .input-active:checked + .click {
   border: 2px solid #2e5bff;
   border-radius: 5px;
@@ -203,41 +214,42 @@ export default {
   line-height: 18px;
   color: rgba(46, 56, 77, 0.35);
 }
+</style>
 
-/* ************************************ */
+// ************************************
 
+<style>
 .el-tabs__header {
   width: 100% !important;
   margin-bottom: 0 !important;
 }
 
-.el-tabs__item.is-top{
+.el-tabs__item.is-top {
   border-radius: 6px;
   color: rgba(51, 102, 255, 0.6);
 }
-.el-tabs__active-bar{
+.el-tabs__active-bar {
   height: 0 !important;
   background: 0 !important;
   width: 0;
 }
- .tabs .el-tabs--top .el-tabs__item.is-top{
-   width: 100%;
-   border: 1px solid #E0E7FF;
- }
-
- .entity-form .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
-  width:293px !important;
-  border-radius:6px 0 0 6px;
-  text-align:center;
+.tabs .el-tabs--top .el-tabs__item.is-top {
+  width: 100%;
+  border: 1px solid #e0e7ff;
 }
 
- .entity-form .el-tabs--top .el-tabs__item.is-top:last-child {
-  width:293px !important ;
-  border-radius:0 6px 6px 0;
-   text-align:center;
+.entity-form .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+  width: 293px !important;
+  border-radius: 6px 0 0 6px;
+  text-align: center;
 }
-.el-tabs__nav{
+
+.entity-form .el-tabs--top .el-tabs__item.is-top:last-child {
+  width: 293px !important ;
+  border-radius: 0 6px 6px 0;
+  text-align: center;
+}
+.el-tabs__nav {
   width: 50% !important;
 }
-
 </style>

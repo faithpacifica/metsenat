@@ -47,17 +47,11 @@ const routes = [
       {
         path: "/students",
         component: () => import("@/pages/dashboard/students.vue"),
-        // children:[      
-        // ]
       },
      {
         path: "/sponsors",
         component: () => import("@/pages/dashboard/sponsors.vue"),
-        // children: [
-        // ],
       },
-
-      
       {
         path: "/dashboard/statistics",
         component: () => import("@/pages/dashboard/statistics.vue"),
