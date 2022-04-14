@@ -1,8 +1,7 @@
 <template lang="">
 <Header/>
-    <div class="container  font-['Poppins'] mb-[40px] font-bold text-[40px] leading-[56px] text-[ #1D1D1F]">
-        This is Register page
-    </div>
+   
+    Register Page
 </template>
 <script>
 import Header from "../components/Header/Header";
@@ -13,6 +12,3 @@ export default {
     }
 }
 </script>
-<style lang="">
-    
-</style>

@@ -1,12 +1,13 @@
 <template>
    <Header/>
   <main class="main">
-    <div class="container">
-      <div class="main__inner flex justify-between">    
-        <FormSection/>
-        <MessageSection />
+      <div class="container">
+      <div class="main-inner grid justify-between xl:grid-cols-10 grid-cols-2">    
+        <FormSection class="xl:col-span-6 col-span-1" />
+        <MessageSection class="xl:col-span-4 col-span-1"/>
       </div>
-    </div>
+      </div>
+   
   </main>
 
 </template>
@@ -34,5 +35,26 @@ export default {
   background-repeat: no-repeat;
   background-position: bottom 0 right 0;
   background-size: cover 100%;
+}
+
+
+/* RESPONSIVE */
+
+@media only screen and (min-width: 768px) and (max-width: 1239px) {
+ .main {
+  background-size: 40%, 100%;
+}
+}
+@media  (max-width: 767px) {
+  .main-inner{
+   grid-template-columns: none;
+   display:flex;
+   flex-direction:column-reverse;
+  } 
+
+  .main{
+    background-image:none;
+  }
+
 }
 </style>

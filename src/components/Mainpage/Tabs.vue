@@ -4,7 +4,7 @@
       <el-tab-pane class="el-tabs__item" label="JISMONIY SHAXS" name="individuals">
         <IndividualsForm/>
         </el-tab-pane>
-      <el-tab-pane label="YURIDIK SHAXS" name="entities">
+      <el-tab-pane class="el-tabs__item" label="YURIDIK SHAXS" name="entities">
         <EntityForm/>
       </el-tab-pane>
         </el-tabs>
@@ -36,9 +36,9 @@ export default {
 
 </script>
 
+
+
 <style >
-
-
 .el-tabs__active-bar{
       background: #3366FF;
 }

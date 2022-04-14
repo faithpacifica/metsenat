@@ -1,8 +1,9 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-backdrop z-[100] py-[50px]">
+    <div class="modal-backdrop z-[100] pt-[50px]">
+        <!-- TODO:shadow ga bosganda modalka yo'qolsin funksiya yozish -->
       <div
-        class="modal single-sponsor-filter mt-[50px] w-[586px] p-[28px] rounded-[12px]"
+        class="modal single-sponsor-filter mt-[50px] max-w-[586px] w-[100%] p-[28px] rounded-[12px]"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
@@ -11,7 +12,7 @@
           class="modal-header font-['SF Pro Display'] font-bold text-[24px] leading-[28px] text-[#28293D]"
           id="modalTitle"
         >
-          <div class="header__inner mb-[28px]">
+          <div class="modal-header__inner mb-[28px]">
             <slot name="header"> Filter </slot>
             <button
               type="button"
@@ -36,12 +37,11 @@
 
             <el-select
               class="select mb-[28px]"
-              v-model="value"
-              disabled
+              v-model="statusValue"
               placeholder="Barchasi"
             >
               <el-option
-                v-for="item in options"
+                v-for="item in status"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -53,38 +53,42 @@
               >Homiylik Summasi</label
             >
 
-            <div class="sponsors-payment-sum flex flex-wrap gap-[10px] mb-[28px]">
-              
-                <label for="all_prices" class="radio w-[124px]">
-                  <div
-                    class="click flex cursor-pointer justify-center items-center bg-[#E0E7FF] py-[16px]"
-                  >
-                    <span class="flex flex-nowrap justify-around items-center ">
-                      <span
-                        class="price font-medium text-[14px] leading-[20px]  text-[#2E384D]"
-                        >Boshqa</span
-                      >
-                    </span>
-                    <input
-                      class="invisible"
-                      id="all_prices"
-                      name="sum"
-                      value="0"
-                      type="radio"
-                    />
-                  </div>
-                </label>
+            <!-- <div
+              class="sponsors-payment-sum flex justify-center flex-wrap gap-[10px] mb-[28px] relative"
+            >
+              <label for="all_prices" class="radio w-[124px]">
+                <div
+                  class="click flex cursor-pointer justify-center items-center bg-[#E0E7FF] py-[16px]"
+                >
+                  <span class="flex flex-nowrap justify-around items-center">
+                    <span
+                      class="price font-medium text-[14px] leading-[20px] text-[#2E384D]"
+                      >Boshqa</span
+                    >
+                  </span>
+                  <input
+                    class="invisible"
+                    id="all_prices"
+                    name="sum"
+                    value="0"
+                    type="radio"
+                  />
+                </div>
+              </label>
 
-              <div class="flex flex-wrap "  v-for="item in amountData" :key="item">
-
+              <div
+                class="flex flex-wrap"
+                v-for="item in amountData"
+                :key="item"
+              >
                 <label for="all_prices" class="radio w-[124px]">
                   <div
                     class="click flex cursor-pointer justify-center items-center py-[16px]"
                   >
                     <span class="flex flex-nowrap justify-around items-center">
                       <span
-                        class="price font-medium text-[14px] leading-[20px] text-[#2E384D] "
-                        >{{item}}</span
+                        class="price font-medium text-[14px] leading-[20px] text-[#2E384D]"
+                        >{{ item }}</span
                       >
                     </span>
                     <input
@@ -97,31 +101,118 @@
                   </div>
                 </label>
               </div>
-            </div>
+            </div> -->
+<!-- --------------------------------------------------- -->
+    <div
+        class="sponsors-payment-sum flex justify-flex-start text-center gap-[10px] w-[100%] flex-wrap mb-[28px] relative"
+      >
+             <div class="flex justify-between flex-wrap">
+          <!-- TODO:bu  input checked stili doublecheck da ishlayapti -->
 
+          <label :for="input200" class="radio w-[124px] border-[#2E5BFF] bg-[#E0E7FF]">
+            <input
+              class="input-active cursor-pointer"
+              v-model="sum"
+              :id="input200"
+              name="sum"
+              type="radio"
+            />
+            <div
+              class="click flex justify-center items-center flex-wrap  py-[16px]"
+              @click="openInput"
+            >
+              <span class="flex flex-nowrap justify-around items-center">
+                <span
+                  class="price font-medium text-[14px] leading-[20px]  text-[#2E384D] mr-[4px]"
+                  >Barchasi</span
+                >
+              </span>
+            </div>
+          </label>
+        </div>
+
+        <!-- {{ sum }} -->
+
+   
+        <!-- <transition>
+          <div class="font-['Rubik'] mb-[28px] w-[100%]" v-if="sum == 'on'">
+            <input
+              name="sum"
+              v-model="otherSum"
+              class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
+              :class="v$.sum.$error"
+              type="text"
+              maxLength="10"
+              placeholder="Summani kiriting"
+            />
+          </div>
+        </transition> -->
+
+        <div
+          class="flex justify-between flex-wrap"
+          v-for="item in amountData"
+          :key="item.id"
+        >
+          <label
+            :for="'input' + item.id"
+            class="radio cursor-pointer w-[124px] border-[#2E5BFF]"
+          >
+            <input
+              class="form__input input-active"
+              :class="{ 'has-error': v$.sum.$invalid }"
+              v-model="sum"
+              :id="'input' + item.id"
+              name="sum"
+              type="radio"
+              :value="'input' + item.id"
+            />
+            <div
+              class="click flex justify-center items-center flex-wrap py-[16px]"
+            >
+              <span class="flex flex-nowrap justify-around items-center">
+                <span
+                  class="price font-medium text-[14px] leading-[20px] text-[#2E384D] mr-[4px]"
+                  >{{ item.sum}}</span
+                >
+                <span
+                  class="sum text-[12px] leading-[18px] uppercase text-[#2E5BFF]"
+                  >UZS</span
+                >
+              </span>
+            </div>
+          </label>
+        </div>
+
+ 
+
+        <!--TODO: error message uchmayapti -->
+        <div
+          class="error-message text-[red] absolute top-[-40px] right-[0px]"
+          v-if="v$.sum.$error"
+        >
+          Summani tanlang!
+        </div>
+    </div>
             <label
               class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
               >Sana</label
             >
 
-            <el-input
-              v-model="input3"
+            <el-date-picker
+              v-model="selectedDate"
+              type="date"
               class="input-date w-25 m-0 mb-[28px]"
               placeholder="kk.oo.yyyy - kk.oo.yyyy"
-            >
-              <template #suffix>
-                <img
-                  src="@/static/img/icon-calendar.svg"
-                  width="22"
-                  height="22"
-                />
-              </template>
-            </el-input>
+            ></el-date-picker>
           </slot>
         </section>
 
         <footer class="modal-footer flex justify-between mt-[28px]">
-          <el-button class="clear-button w-[149px]" type="button">
+          <el-button
+            class="clear-button w-[149px]"
+            @click="clearData"
+            type="reset"
+          >
             <img
               class="mr-[4px]"
               src="@/static/img/icon-broom.svg"
@@ -131,6 +222,8 @@
           </el-button>
           <el-button
             class="watch-result-button w-[209px] bg-[#3366FF] rounded-[5px]"
+            @click="showResult"
+            @submit.prevent="submitForm"
             type="button"
           >
             <img
@@ -147,46 +240,132 @@
 </template>
 
 <script>
-export default {
-   data() {
-    return {
-     amountData : ['1 000 000', '5 000 000', '7 000 000', '10 000 000', '30 000 000', '30 000 000'] 
-        }     
- },
 
-  name: "Modal",
+import { useVuelidate } from "@vuelidate/core";
+import { required, minLength} from "@vuelidate/validators";
+
+export default {
+  data() {
+    return {
+      name: "Modal",
+      statusValue: null,
+      selectedDate: "",
+      resultArray: [],
+      inputValue: false,
+      sum: "",
+      input: false,
+      otherSum: null,
+
+     amountData: [
+        // {
+        //   id: 0,
+        //   sum: "Barchasi",
+        // },
+        {
+          id: 1,
+          sum: "1 000 000",
+        },
+        {
+          id: 2,
+          sum: "5 000 000",
+        },
+        {
+          id: 3,
+          sum: "7 000 000",
+        },
+        {
+          id: 4,
+          sum: "10 000 000",
+        },
+
+        {
+          id: 5,
+          sum: "30 000 000",
+        },
+        {
+          id: 6,
+          sum: "50 000 000",
+        },
+      ],
+      status: [
+        {
+          number: 1,
+          label: "Barchasi",
+          value: "Barchasi",
+        },
+
+        {
+          number: 2,
+          label: "Tasdiqlangan",
+          value: "Tasdiqlangan",
+        },
+        {
+          number: 3,
+          label: "Yangi",
+          value: "Yangi",
+        },
+        {
+          number: 4,
+          label: "Moderatsiyada",
+          value: "Moderatsiyada",
+        },
+
+        {
+          number: 5,
+          label: "Bekor qilingan",
+          value: "Bekor qilingan",
+        },
+      ],
+    };
+  },
+  setup: () => ({
+    v$: useVuelidate(),
+  }),
+
+  validations() {
+    return {
+
+      sum: {
+        required,
+        minLength: minLength(4),
+      },
+      otherSum: {
+        required,
+        minLength: minLength(4),
+
+      },
+    };
+  },
+
   methods: {
     close() {
       this.$emit("close");
     },
+
+     submitForm() {
+      this.v$.$validate();
+
+      if (
+        !this.v$.$error &&
+        ((this.sum != "" && this.sum != "on") || this.otherSum != "")
+      ) {
+        console.log("no error!");
+        this.sentSuccessfully = true;
+      }
+    },
+
+    showResult() {
+      console.log(this.statusValue);
+      console.log(this.selectedDate);
+      console.log(this.sum);
+    },
+    clearData() {
+      console.log((this.statusValue = ""), "data cleared");
+      console.log((this.selectedDate = ""), "data cleared");
+      console.log((this.sum = ""), "data cleared");
+    },
   },
 };
-
-import { ref } from "vue";
-
-const value = ref("");
-const options = [
-  {
-    value: "Barchasi",
-    label: "Barchasi",
-  },
-  {
-    value: "Yangi",
-    label: "Yangi",
-  },
-  {
-    value: "Modernizatsiyada",
-    label: "Modernizatsiyada",
-  },
-  {
-    value: "Tasdiqlangan",
-    label: "Tasdiqlangan",
-  },
-  {
-    value: "Bekor qilingan",
-    label: "Bekor qilingan",
-  },
-];
 </script>
 
 <style>
@@ -208,7 +387,7 @@ const options = [
 
 .modal {
   background: #ffffff;
-  overflow-x: auto;
+  max-height:100vh;
   display: flex;
   flex-direction: column;
 }
@@ -228,6 +407,7 @@ const options = [
   flex-direction: row;
   justify-content: flex-end;
 }
+
 .clear-button {
   height: 42px;
   font-family: "SF Pro Text";
@@ -238,6 +418,7 @@ const options = [
   letter-spacing: -0.35px;
   color: #b2b7c1;
 }
+
 .watch-result-button {
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04),
     0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -272,7 +453,8 @@ const options = [
   font-family: "Rubik";
   font-size: 15px;
   line-height: 18px;
-  color: #2e384d !important; /*TODO:rang tasir qilmayapti */
+  color: #2e384d !important;
+  /*TODO:rang tasir qilmayapti */
 }
 
 .el-input__inner {
@@ -282,9 +464,11 @@ const options = [
   border: 1px solid #e0e7ff;
   border-radius: 6px;
 }
+
 .input-date {
   width: 253px !important;
 }
+
 .modal-fade-enter,
 .modal-fade-leave-to {
   opacity: 0;
@@ -297,25 +481,34 @@ const options = [
 
 /* Blue checked buttons */
 
-.radio {
-  width: 124px;
-  /* margin-bottom: 16px; */
-  background: #f9faff;
-  /* border: 2px solid #2E5BFF; */
-  border: 2px solid #e0e7ff;
-  border-radius: 5px;
-  position: relative;
+.radio .input-active:checked + .click:after {
+  display: block;
 }
 
-.radio:after {
+.click {
+  border: 2px solid transparent;
+}
+
+.radio .input-active:checked + .click {
+  border: 2px solid #2e5bff;
+  border-radius: 5px;
+}
+
+.click:after {
   content: "";
-  /* TODO:not working */
   background-image: url("@/static/img/checkedIcon.svg");
   position: absolute;
-  top: 0;
-  right: 0;
   width: 20px;
+  height: 20px;
+  background-size: 20px;
   z-index: 3;
+  top: -8px;
+  right: -8px;
+  display: none;
+}
+
+.input-active {
+  display: none;
 }
 
 .form__input {
@@ -327,6 +520,13 @@ const options = [
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-  color: rgba(46, 56, 77, 0.35);
+ color: #000;
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width: 357px) and (max-width: 600px) {
+ .sponsors-payment-sum{
+     justify-content:center;
+ }
 }
 </style>

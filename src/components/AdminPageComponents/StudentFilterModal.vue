@@ -2,7 +2,7 @@
   <transition name="modal-fade">
     <div class="modal-backdrop z-[100]">
       <div
-        class="modal single-sponsor-filter mt-[50px] w-[586px] p-[28px] rounded-[12px]"
+        class="modal single-sponsor-filter mt-[50px] max-w-[586px] w-[100%] p-[28px] rounded-[12px]"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
@@ -11,7 +11,7 @@
           class="modal-header font-['SF Pro Display'] font-bold text-[24px] leading-[28px] text-[#28293D]"
           id="modalTitle"
         >
-          <div class="header__inner mb-[28px]">
+          <div class="modal-header__inner mb-[28px]">
             <slot name="header"> Filter </slot>
             <button
               type="button"
@@ -29,44 +29,44 @@
           id="modalDescription"
         >
           <slot name="body">
-            <label
-              class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
-              >Talabalik turi</label
-            >
+            <div class="form-input-wrapper flex flex-col">
+              <label
+                class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
+                >Talabalik turi</label
+              >
 
-            <el-select
-              class="select mb-[28px]"
-              v-model="value"
-              disabled
-              placeholder="Barchasi"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-
-            <label
-              class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
-              >OTM</label
-            >
-
-            <el-select
-              class="select mb-[28px]"
-              v-model="value"
-              disabled
-              placeholder="Barchasi"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-
+              <el-select
+                class="select mb-[28px]"
+                v-model="studentType"
+                placeholder="Barchasi"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </div>
+            <!-- ------------------------ -->
+            <div class="form-input-wrapper flex flex-col">
+              <label
+                class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
+                >OTM</label
+              >
+              <el-select
+                class="select mb-[28px]"
+                v-model="universityValue"
+                placeholder="Barchasi"
+              >
+                <el-option
+                  v-for="item in univesities"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </div>
           </slot>
         </section>
 
@@ -98,39 +98,54 @@
 
 <script>
 export default {
-  name: "Modal",
+  data() {
+    return {
+      name: "Modal",
+      studentType: "",
+      universityValue: "",
+
+      options: [
+        {
+          value: "Barchasi",
+          label: "Barchasi",
+        },
+        {
+          value: "Magistr",
+          label: "Magistr",
+        },
+        {
+          value: "Bakalavr",
+          label: "Bakalavr",
+        },
+      ],
+
+      univesities: [
+        {
+          value: "Moliya instituti",
+          label: "Moliya instituti",
+        },
+        {
+          value: "Sharqshunoslik instituti",
+          label: "Sharqshunoslik instituti",
+        },
+        {
+          value: "Toshkent Davlat instituti",
+          label: "Toshkent Davlat instituti",
+        },
+        {
+          value: "Jahon tillar instituti",
+          label: "Jahon tillar instituti",
+        },
+      ],
+    };
+  },
+
   methods: {
     close() {
       this.$emit("close");
     },
   },
 };
-
-import { ref } from "vue";
-
-const value = ref("");
-const options = [
-  {
-    value: "Barchasi",
-    label: "Barchasi",
-  },
-  {
-    value: "Yangi",
-    label: "Yangi",
-  },
-  {
-    value: "Modernizatsiyada",
-    label: "Modernizatsiyada",
-  },
-  {
-    value: "Tasdiqlangan",
-    label: "Tasdiqlangan",
-  },
-  {
-    value: "Bekor qilingan",
-    label: "Bekor qilingan",
-  },
-];
 </script>
 
 <style>
@@ -172,6 +187,7 @@ const options = [
   flex-direction: row;
   justify-content: flex-end;
 }
+
 .clear-button {
   height: 42px;
   font-family: "SF Pro Text";
@@ -182,6 +198,7 @@ const options = [
   letter-spacing: -0.35px;
   color: #b2b7c1;
 }
+
 .watch-result-button {
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04),
     0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -216,7 +233,8 @@ const options = [
   font-family: "Rubik";
   font-size: 15px;
   line-height: 18px;
-  color: #2e384d !important; /*TODO:rang tasir qilmayapti */
+  color: #2e384d !important;
+  /*TODO:rang tasir qilmayapti */
 }
 
 .el-input__inner {
@@ -226,9 +244,11 @@ const options = [
   border: 1px solid #e0e7ff;
   border-radius: 6px;
 }
+
 .input-date {
   width: 253px !important;
 }
+
 .modal-fade-enter,
 .modal-fade-leave-to {
   opacity: 0;

@@ -38,7 +38,7 @@ const routes = [
   },
 
   {
-    path: "/dashboard",
+    path: "/dashboard/statistics",
     meta: {
       title: "Dashboard",
     },

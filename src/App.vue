@@ -8,17 +8,36 @@ export default {
 
   data(){
     return {
-      myTable:[
-        {
-          
-        }
-      ]
-    }
-  },
   name: "App",
   components: {
 
   },
+
+     status: [{
+        value: "Barchasi",
+        label: "Barchasi",
+    },
+    {
+        value: "Yangi",
+        label: "Yangi",
+    },
+    {
+        value: "Modernizatsiyada",
+        label: "Modernizatsiyada",
+    },
+    {
+        value: "Tasdiqlangan",
+        label: "Tasdiqlangan",
+    },
+    {
+        value: "Bekor qilingan",
+        label: "Bekor qilingan",
+    },
+ 
+],
+    }
+  },
+
 }
 
 </script>
@@ -100,7 +119,7 @@ body {
    width: 50%;
    border: 1px solid #E0E7FF;
  }
-
+/* 
 .tabs .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
   width:293px !important;
   border-radius:6px 0 0 6px;
@@ -111,6 +130,6 @@ body {
   width:293px !important ;
   border-radius:0 6px 6px 0;
    text-align:center;
-}
+} */
 
 </style>

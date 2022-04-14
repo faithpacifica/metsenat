@@ -3,42 +3,71 @@
   <div>
     <form
       v-if="sentSuccessfully === false"
-      class="form entity-form max-w-[586px] w-[100%] mt-[28px]"
+      class="form entity-form cursor-auto max-w-[586px] w-[100%] mt-[28px]"
       id="entityForm"
-      @submit="checkForm"
+      @submit.prevent="submitForm"
       action="#"
       method="post"
     >
-      <div class="font-['Rubik'] mb-[28px]">
+      <div class="form-group font-['Rubik'] mb-[28px] relative">
         <label
+          for="name"
           class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
         >
           F.I.Sh. (Familiya Ism Sharifingiz)
         </label>
         <input
+          id="name"
+          v-model="name"
           class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
+          :class="{ 'has-error': v$.name.$error }"
           type="text"
           placeholder="Abdullayev Abdulla Abdulla o’g’li"
-          maxlength="100"
+          maxlength="50"
+          autocomplete="off"
         />
+        <!-- error message -->
+        <div
+          class="error-message text-[red] absolute top-[0px] right-[0px]"
+          v-if="v$.name.$error"
+        >
+          Ism-sharifingizni kiriting
+        </div>
       </div>
-      <div class="font-['Rubik'] mb-[28px]">
+
+      <div class="font-['Rubik'] mb-[28px] relative">
         <label
+          for="tel"
           class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
           >Telefon raqamingiz</label
         >
         <input
+          id="tel"
+          v-model="tel"
+          v-mask="'+998(##)-###-##-##'"
+          :class="{ 'has-error': v$.tel.$error }"
+          name="tel"
           class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
           type="text"
           placeholder="+998 00 000-00-00"
+          autocomplete="off"
         />
+
+        <!-- error message -->
+        <div
+          class="error-message text-[rgb(255,0,0)] absolute top-[0px] right-[0px]"
+          v-if="v$.tel.$error"
+        >
+          Telefon raqamingizni kiriting:
+        </div>
       </div>
+
       <label
         class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
         >To‘lov summasi</label
       >
       <div
-        class="sponsors-payment-sum flex text-center gap-[15px] w-[100%] flex-wrap mb-[28px]"
+        class="sponsors-payment-sum flex justify-center text-center relative gap-[15px] w-[100%] flex-wrap mb-[28px]"
       >
         <div
           class="flex justify-between flex-wrap"
@@ -47,18 +76,20 @@
         >
           <label
             :for="'input2' + item.id"
-            class="radio w-[185px] border-[#2E5BFF] cursor-pointer"
+            class="radio cursor-pointer w-[185px] border-[#2E5BFF]"
           >
             <input
-              class="input-active"
-              v-model="inputValue2"
-              @click="checkAmount2"
+              class="input-active form__input"
+              :class="{ 'has-error': v$.sum.$invalid }"
+              v-model="sum"
               :id="'input2' + item.id"
               name="sum"
               type="radio"
               :value="'input2' + item.id"
             />
-            <div class="click flex justify-center flex-wrap p-[20px]">
+            <div
+              class="click flex justify-center items-center flex-wrap p-[20px]"
+            >
               <span class="flex flex-nowrap justify-around items-center">
                 <span
                   class="money font-medium text-[18px] leading-[21px] uppercase text-[#2E384D] mr-[4px]"
@@ -72,19 +103,61 @@
             </div>
           </label>
         </div>
+
+        <div class="flex justify-between flex-wrap">
+          <!-- TODO:bu  input double checked da ishlayapti  -->
+
+          <label :for="input200" class="radio w-[185px] border-[#2E5BFF]">
+            <input
+              class="input-active form__input cursor-pointer"
+              v-model="sum"
+              :id="input200"
+              name="sum"
+              type="radio"
+            />
+            <div
+              class="click flex justify-center items-center flex-wrap p-[20px]"
+              @click="input = !input"
+            >
+              <span class="flex flex-nowrap justify-around items-center">
+                <span
+                  class="money font-medium text-[18px] leading-[21px] uppercase text-[#2E384D] mr-[4px]"
+                  >Boshqa</span
+                >
+                <span
+                  class="sum text-[12px] leading-[18px] uppercase text-[#2E5BFF]"
+                  >UZS</span
+                >
+              </span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Qo'shimcha SUMMA kiritish uchun -->
+        <transition>
+          <div class="font-['Rubik'] mb-[28px] mt-[28px] w-[100%]" v-if="input">
+            <input
+              name="sum"
+              v-model="otherSum"
+              class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
+              :class="v$.sum.$error"
+              type="text"
+              placeholder="1 000 000"
+               v-mask="'### ### ### ###'"
+            />
+          </div>
+        </transition>
+
+        <!-- error message -->
+        <div
+          class="error-message text-[red] absolute top-[-40px] right-[0px]"
+          v-if="v$.sum.$error"
+        >
+          Summani tanlang!
+        </div>
       </div>
 
-      <transition>
-        <div class="font-['Rubik'] mb-[28px]" v-if="inputValue2 == 'input220'">
-          <input
-            class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
-            type="text"
-            placeholder=""
-          />
-        </div>
-      </transition>
-
-      <div class="font-['Rubik'] mb-[28px]">
+      <div class="font-['Rubik'] mb-[28px] relative">
         <label
           class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
         >
@@ -93,18 +166,27 @@
         <input
           class="form__input block w-[100%] py-[12px] px-[16px] rounded-[6px]"
           type="text"
+          v-model="company"
           placeholder="Orient Group"
           maxlength="100"
+          :class="v$.company.$error"
         />
+
+        <!-- error message -->
+        <div
+          class="error-message text-[red] absolute top-[0px] right-[0px]"
+          v-if="v$.company.$error"
+          placeholder="Orient Group"
+        >
+          Tashkilot nomini kiriting
+        </div>
       </div>
 
       <div class="send-button">
         <button
-          @click="sentSuccessfully = true"
           button="submit"
           class="btn-primary bg-[#2E5BFF] rounded-[6px] p-[14px] w-[100%] font-medium text-[15px] leading-[21px] text-center text-[#FFFFFF]"
         >
-          <!-- TODO:button bosganda Successful componentga utkazsin -->
           Yuborish
         </button>
       </div>
@@ -119,6 +201,9 @@
 <script>
 import Successful from "@/components/Mainpage/Successful.vue";
 
+import { useVuelidate } from "@vuelidate/core";
+import { required , minLength} from "@vuelidate/validators";
+
 export default {
   components: {
     Successful,
@@ -126,9 +211,13 @@ export default {
 
   data() {
     return {
-      inputValue2: false,
-      isHidden: false,
       sentSuccessfully: false,
+      name: "",
+      tel: '+998',
+      sum: null,
+      input: false,
+      company: "",
+        otherSum:'',
 
       amountData: [
         {
@@ -152,21 +241,53 @@ export default {
           id: 5,
           sum: "30 000 000",
         },
-        {
-          id: 20,
-          sum: "Boshqa",
-        },
       ],
     };
   },
 
+  setup: () => ({
+    v$: useVuelidate(),
+  }),
+
+  validations() {
+    return {
+      name: {
+        required,
+      },
+      tel: {
+        required,
+        minLength: minLength(18)
+      },
+
+      sum: {
+        required,
+        minLength: minLength(4)
+      },
+      company: {
+        required,
+      },
+    };
+  },
+
   methods: {
-    checkAmount2() {},
+    submitForm() {
+      this.v$.$validate();
+
+      if (!this.v$.$error && ((this.sum!= '' && this.sum != 'on') || this.otherSum != '')) {
+        console.log("no error!");
+        this.sentSuccessfully = true;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+.form__input:focus {
+  border: 1px solid #2e5bff;
+ 
+}
+
 .entity-form .radio {
   width: 185px;
   border: 2px solid #e0e7ff;
@@ -177,6 +298,7 @@ export default {
 .input-active {
   display: none;
 }
+
 .radio .input-active:checked + .click:after {
   display: block;
 }
@@ -212,11 +334,15 @@ export default {
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-  color: rgba(46, 56, 77, 0.35);
+   color:#000;;
+}
+
+/* Validation styles */
+
+.has-error {
+  outline: 1px solid red;
 }
 </style>
-
-// ************************************
 
 <style>
 .el-tabs__header {
@@ -228,11 +354,13 @@ export default {
   border-radius: 6px;
   color: rgba(51, 102, 255, 0.6);
 }
+
 .el-tabs__active-bar {
   height: 0 !important;
   background: 0 !important;
   width: 0;
 }
+
 .tabs .el-tabs--top .el-tabs__item.is-top {
   width: 100%;
   border: 1px solid #e0e7ff;
@@ -245,11 +373,39 @@ export default {
 }
 
 .entity-form .el-tabs--top .el-tabs__item.is-top:last-child {
-  width: 293px !important ;
+  width: 293px !important;
   border-radius: 0 6px 6px 0;
   text-align: center;
 }
+
 .el-tabs__nav {
   width: 50% !important;
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width: 768px) and (max-width: 1239px) {
+    .individuals-form .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+        width: inherit !important;
+        border-radius: 6px 0 0 6px;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1239px) {
+    .individuals-form .el-tabs--top .el-tabs__item.is-top:last-child {
+        width: inherit !important;
+        border-radius: 0 6px 6px 0;
+        text-align: center;
+    }
+}
+
+@media (max-width:1239px) {
+    .radio{
+        width:160px;
+    }
+
+    .click{
+        padding:10px;
+    }
 }
 </style>

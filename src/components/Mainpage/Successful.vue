@@ -14,5 +14,5 @@ export default {
 }
 </script>
 <style>
-    
+    /* TODO:responsive qilish */
 </style>

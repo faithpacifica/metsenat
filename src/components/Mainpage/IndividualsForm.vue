@@ -3,19 +3,19 @@
   <div>
     <form
       v-if="sentSuccessfully === false"
-      class="form individuals-form max-w-[586px] mt-[28px] w-[100%]"
+      class="form individuals-form cursor-auto max-w-[586px] mt-[28px] w-[100%]"
       action="#"
       method="post"
       @submit.prevent="submitForm"
     >
-      <div class="form-group font-['Rubik'] mb-[28px]">
+      <div class="form-group font-['Rubik'] mb-[28px] relative">
         <label
           for="name"
           class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
         >
           F.I.Sh. (Familiya Ism Sharifingiz)
         </label>
-        {{ v$.name.$error }}
+
         <input
           id="name"
           v-model="name"
@@ -24,25 +24,27 @@
           :class="{ 'has-error': v$.name.$error }"
           type="text"
           placeholder="Abdullayev Abdulla Abdulla o’g’li"
-          maxlength="100"
+          maxlength="50"
           autocomplete="off"
         />
-        <!-- error message TODO:error message chiqazish-->
-        <div class="error-message text-[red]" v-if="v$.name.$model.$error">
-          Ism-sharifingizni kiriting!
+        <div
+          class="error-message text-[red] absolute top-[0px] right-[0px]"
+          v-if="v$.name.$error"
+        >
+          Ism-sharifingizni kiriting
         </div>
       </div>
 
-      <div class="font-['Rubik'] mb-[28px]">
+      <div class="font-['Rubik'] mb-[28px] relative">
         <label
           for="tel"
           class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
           >Telefon raqamingiz</label
         >
-        <!-- TODO:faqat digit kiritilsin -->
         <input
           id="tel"
           v-model="tel"
+          v-mask="'+998(##)-###-##-##'"
           :class="{ 'has-error': v$.tel.$error }"
           name="tel"
           class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
@@ -50,14 +52,23 @@
           placeholder="+998 00 000-00-00"
           autocomplete="off"
         />
+
+        <!-- error message -->
+        <div
+          class="error-message text-[rgb(255,0,0)] absolute top-[0px] right-[0px]"
+          v-if="v$.tel.$error"
+        >
+          Telefon raqamingizni kiriting
+        </div>
       </div>
 
       <label
         class="inline-block mb-[8px] font-medium text-[12px] leading-[14px] tracking-[1.125px] uppercase text-[#1D1D1F]"
         >To‘lov summasi</label
       >
-      <div
-        class="sponsors-payment-sum flex text-center gap-[15px] w-[100%] flex-wrap mb-[28px]"
+
+    <div
+        class="sponsors-payment-sum flex justify-center text-center gap-[15px] w-[100%] flex-wrap mb-[28px] relative"
       >
         <div
           class="flex justify-between flex-wrap"
@@ -66,12 +77,12 @@
         >
           <label
             :for="'input' + item.id"
-            class="radio w-[185px] border-[#2E5BFF] cursor-pointer"
+            class="radio cursor-pointer w-[185px] border-[#2E5BFF]"
           >
-          <!-- TODO:yoki summani olsin yoki BOSHQA dagi summani => digit bulishi kere -->
             <input
-              class="input-active"
-              v-model="inputValue"
+              class="form__input input-active"
+              :class="{ 'has-error': v$.sum.$invalid }"
+              v-model="sum"
               :id="'input' + item.id"
               name="sum"
               type="radio"
@@ -93,25 +104,64 @@
             </div>
           </label>
         </div>
-      </div>
 
-      <transition>
-        <!-- TODO:faqat son qabul qilishi kere -->
-        <div class="font-['Rubik'] mb-[28px]" v-if="inputValue == 'input20'">
-          <input
-            name="sum"
-            v-model="sum"
-            :class="{ 'has-error': v$.sum.$error }"
-            class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
-            type="text"
-            placeholder=""
-          />
+        <div class="flex justify-between flex-wrap">
+          <!-- TODO:bu  input checked stili doublecheck da ishlayapti -->
+
+          <label :for="input200" class="radio w-[185px] border-[#2E5BFF]">
+            <input
+              class="input-active cursor-pointer"
+              v-model="sum"
+              :id="input200"
+              name="sum"
+              type="radio"
+            />
+            <div
+              class="click flex justify-center items-center flex-wrap p-[19px]"
+              @click="openInput"
+            >
+              <span class="flex flex-nowrap justify-around items-center">
+                <span
+                  class="money font-medium text-[18px] leading-[21px] uppercase text-[#2E384D] mr-[4px]"
+                  >Boshqa</span
+                >
+                <span
+                  class="sum text-[12px] leading-[18px] uppercase text-[#2E5BFF]"
+                  >UZS</span
+                >
+              </span>
+            </div>
+          </label>
         </div>
-      </transition>
 
-      <div class="send-button">
-         <!-- @click="sentSuccessfully = true" -->
-         <!-- TODO:Successful componentni qanday chaqirib olsa buladi? -->
+        <!-- {{ sum }} -->
+
+        <!-- TODO:Qo'shimcha SUMMA kiritish uchun -->
+        <transition>
+          <div class="font-['Rubik'] mb-[28px] w-[100%]" v-if="sum == 'on'">
+            <input
+              name="sum"
+              v-model="otherSum"
+              class="form__input block max-w-[586px] w-[100%] py-[12px] px-[16px] rounded-[6px]"
+              :class="v$.sum.$error"
+              type="text"
+              maxLength="10"
+              placeholder="Summani kiriting"
+            />
+          </div>
+          <!-- TODO:sonni galati kirityapti -->
+        </transition>
+
+        <!--TODO: error message uchmayapti -->
+        <div
+          class="error-message text-[red] absolute top-[-40px] right-[0px]"
+          v-if="v$.sum.$error"
+        >
+          Summani tanlang!
+        </div>
+    </div>
+
+    <div class="send-button">
         <button
           button="submit"
           class="btn-primary bg-[#2E5BFF] rounded-[6px] p-[14px] w-[100%] font-medium text-[15px] leading-[21px] text-center text-[#FFFFFF]"
@@ -129,8 +179,9 @@
 
 <script>
 import Successful from "@/components/Mainpage/Successful.vue";
+
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, minLength, maxLength } from "@vuelidate/validators";
 
 export default {
   components: {
@@ -140,11 +191,12 @@ export default {
   data() {
     return {
       inputValue: false,
-      isHidden: false,
       sentSuccessfully: false,
       name: "",
-      tel: "",
+      tel: "+998",
       sum: "",
+      input: false,
+      otherSum: null,
 
       amountData: [
         {
@@ -168,28 +220,48 @@ export default {
           id: 5,
           sum: "30 000 000",
         },
-        {
-          id: 20,
-          sum: "Boshqa",
-        },
       ],
     };
   },
-  // Doim data dan tashqarida buladi setup va validations
-  setup: () => ({ v$: useVuelidate() }),
+
+  setup: () => ({
+    v$: useVuelidate(),
+  }),
 
   validations() {
     return {
-      name: { required },
-      tel: { required },
-      sum: { required },
+      name: {
+        required,
+      },
+      tel: {
+        required,
+        minLength: minLength(18),
+      },
+
+      sum: {
+        required,
+        minLength: minLength(4),
+      },
+      otherSum: {
+        required,
+        minLength: minLength(4),
+        maxLength: maxLength(10),
+      },
     };
   },
+  //  TODO:Pul summasini kiritish
+  watch: {},
+
   methods: {
     submitForm() {
       this.v$.$validate();
-      if (!this.v$.$error) {
-        // sentSuccessfully = true
+
+      if (
+        !this.v$.$error &&
+        ((this.sum != "" && this.sum != "on") || this.otherSum != "")
+      ) {
+        console.log("no error!");
+        this.sentSuccessfully = true;
       }
     },
   },
@@ -197,6 +269,10 @@ export default {
 </script>
 
 <style>
+.form__input:focus {
+  border: 1px solid #2e5bff;
+}
+
 .individuals-form .radio {
   width: 185px;
   border: 2px solid #e0e7ff;
@@ -207,6 +283,7 @@ export default {
 .input-active {
   display: none;
 }
+
 .radio .input-active:checked + .click:after {
   display: block;
 }
@@ -214,6 +291,7 @@ export default {
 .click {
   border: 2px solid transparent;
 }
+
 .radio .input-active:checked + .click {
   border: 2px solid #2e5bff;
   border-radius: 5px;
@@ -241,14 +319,15 @@ export default {
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-  color: rgba(46, 56, 77, 0.35);
+  color: #000;
 }
 
 /* Validation styles */
 
 .has-error {
-  border: 1px solid red;
+  outline: 1px solid red;
 }
+
 /* ************************************ */
 
 .el-tabs__header {
@@ -260,27 +339,62 @@ export default {
   border-radius: 6px;
   color: rgba(51, 102, 255, 0.6);
 }
+
 .el-tabs__active-bar {
   height: 0 !important;
   background: 0 !important;
   width: 0;
 }
+
 .tabs .el-tabs--top .el-tabs__item.is-top {
   width: 100%;
   border: 1px solid #e0e7ff;
 }
+
 .el-tabs__nav {
   width: 50% !important;
 }
+
 .individuals-form .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
   width: 293px !important;
-  border-radius: 6px 0 0 6px;
+  border-radius: 6px 0 0 6px !important;
   text-align: center;
 }
 
 .individuals-form .el-tabs--top .el-tabs__item.is-top:last-child {
-  width: 293px !important ;
-  border-radius: 0 6px 6px 0;
+  width: 293px !important;
+  border-radius: 0 6px 6px 0 !important;
   text-align: center;
+}
+
+.tabs .el-tabs--top .el-tabs__item.is-top {
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width: 768px) and (max-width: 1239px) {
+  .individuals-form .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
+    width: inherit !important;
+    border-radius: 6px 0 0 6px;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1239px) {
+  .individuals-form .el-tabs--top .el-tabs__item.is-top:last-child {
+    width: inherit !important;
+    border-radius: 0 6px 6px 0;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 369px) and (max-width: 1239px) {
+  .radio {
+    width: 160px !important;
+  }
+
+  .click {
+    padding: 10px;
+  }
 }
 </style>
